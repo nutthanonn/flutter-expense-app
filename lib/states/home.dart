@@ -8,6 +8,28 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  int number = 0;
+
+  Widget btnAddNumber() {
+    return OutlinedButton(
+        onPressed: () {
+          setState(() {
+            number += 1;
+          });
+        },
+        child: const Text("Add"));
+  }
+
+  Widget btnClearNumber() {
+    return OutlinedButton(
+        onPressed: () {
+          setState(() {
+            number = 0;
+          });
+        },
+        child: const Text("Reset"));
+  }
+
   Widget shopIcon() {
     return Image.asset(
       "images/online-shopping-icon.png",
@@ -27,8 +49,34 @@ class _HomeState extends State<Home> {
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: <Widget>[shopIcon(), shopName()],
+            children: [
+              shopIcon(),
+              shopName(),
+              Text(
+                "$number",
+                style: const TextStyle(fontSize: 40),
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: btnAddNumber(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: btnClearNumber(),
+                  )
+                ],
+              )
+            ],
           ),
+        ),
+      ),
+      appBar: AppBar(
+        title: const Text(
+          "Nutthanon",
+          style: TextStyle(fontFamily: "Itim-Regular", fontSize: 30),
         ),
       ),
     );
