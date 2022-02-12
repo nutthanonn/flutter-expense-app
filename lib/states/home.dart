@@ -8,77 +8,27 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int number = 0;
-
-  Widget btnAddNumber() {
-    return OutlinedButton(
-        onPressed: () {
-          setState(() {
-            number += 1;
-          });
-        },
-        child: const Text("Add"));
-  }
-
-  Widget btnClearNumber() {
-    return OutlinedButton(
-        onPressed: () {
-          setState(() {
-            number = 0;
-          });
-        },
-        child: const Text("Reset"));
-  }
-
-  Widget shopIcon() {
-    return Image.asset(
-      "images/online-shopping-icon.png",
-      width: 200,
-    );
-  }
-
-  Widget shopName() {
-    return const Text("Nut Shop",
-        style: TextStyle(fontFamily: "Itim-Regular", fontSize: 40));
-  }
+  int _count = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              shopIcon(),
-              shopName(),
-              Text(
-                "$number",
-                style: const TextStyle(fontSize: 40),
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: btnAddNumber(),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: btnClearNumber(),
-                  )
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
       appBar: AppBar(
-        title: const Text(
-          "Nutthanon",
-          style: TextStyle(fontFamily: "Itim-Regular", fontSize: 30),
-        ),
+        title: const Text("Nutthanon App"),
       ),
+      body: Center(child: Text("$_count")),
+      bottomNavigationBar: BottomAppBar(
+        shape: const CircularNotchedRectangle(),
+        child: Container(height: 30.0),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => setState(() {
+          _count++;
+        }),
+        child: const Icon(Icons.add),
+      ),
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.miniCenterDocked,
     );
   }
 }
