@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class FormLogin extends StatefulWidget {
   const FormLogin({Key? key}) : super(key: key);
@@ -8,20 +8,53 @@ class FormLogin extends StatefulWidget {
 }
 
 class _FormLoginState extends State<FormLogin> {
-  Widget btnToHome() {
-    return OutlinedButton(
-      onPressed: () {
-        Navigator.pop(context);
-      },
-      child: const Text("back to home"),
+  String username = "";
+
+  Widget homeBtn() {
+    return IconButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        icon: const Icon(Icons.navigate_before));
+  }
+
+  Widget usernameField() {
+    return Form(
+      child: TextField(
+        obscureText: false,
+        decoration: const InputDecoration(
+            border: OutlineInputBorder(), labelText: "Username"),
+        style: const TextStyle(fontSize: 20),
+        onChanged: (text) {
+          setState(() {
+            username = text;
+          });
+        },
+        onSubmitted: (String value) {
+          print(username);
+        },
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: btnToHome(),
+      appBar: AppBar(
+        title: const Text("Login"),
+      ),
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: usernameField(),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
