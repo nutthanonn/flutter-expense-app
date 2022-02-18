@@ -1,4 +1,4 @@
-import 'package:demo_flutter/states/home.dart';
+import 'package:demo_flutter/states/FormLogin.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Home(),
+      home: FormLogin(),
     );
   }
 }
