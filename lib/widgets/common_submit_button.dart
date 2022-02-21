@@ -2,28 +2,24 @@ import 'package:flutter/material.dart';
 
 class CommonSubmitButton extends StatelessWidget {
   const CommonSubmitButton(
-      {Key? key, required this.onSubmit, required this.nameBtn})
+      {Key? key, required this.onPressed, required this.nameBtn})
       : super(key: key);
 
-  final Function() onSubmit;
+  final VoidCallback? onPressed;
   final String nameBtn;
 
   @override
-  Container build(BuildContext context) {
-    return Container(
-      child: TextButton(
-        child: Text(nameBtn),
-        onPressed: onSubmit,
-        style: ButtonStyle(
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
+  TextButton build(BuildContext context) {
+    return TextButton(
+      child: Text(nameBtn),
+      onPressed: onPressed,
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
           ),
         ),
       ),
-      height: 30.0,
-      width: 120.0,
     );
   }
 }

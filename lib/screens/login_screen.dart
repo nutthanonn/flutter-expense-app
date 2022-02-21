@@ -1,14 +1,24 @@
-import 'package:demo_flutter/states/form_gmail.dart';
-import 'package:demo_flutter/states/form_password.dart';
+import 'package:demo_flutter/widgets/common_demo_text_form_field.dart';
 import 'package:demo_flutter/widgets/common_submit_button.dart';
 import 'package:demo_flutter/widgets/common_title.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatelessWidget {
-  const Login({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+  String? _gmail;
 
   void handleSubmit() {
-    print("Hello");
+    if (!_formKey.currentState!.validate()) return;
+    _formKey.currentState!.save();
+
+    print(_gmail);
   }
 
   @override
@@ -16,23 +26,31 @@ class Login extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const CommonTitle(title: 'Login', sizeTitle: 50),
-              const SizedBox(
-                height: 30.0,
-              ),
-              const FormGmail(),
-              const SizedBox(
-                height: 20.0,
-              ),
-              const FormPassword(),
-              const SizedBox(
-                height: 20.0,
-              ),
-              CommonSubmitButton(onSubmit: handleSubmit, nameBtn: 'Submit')
-            ],
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const CommonTitle(title: "Login", sizeTitle: 50.0),
+                const SizedBox(
+                  height: 50.0,
+                ),
+                DemoTextFormField(
+                  onSaved: (value) {
+                    _gmail = value;
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Empty gmail';
+                    }
+                  },
+                ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                CommonSubmitButton(onPressed: handleSubmit, nameBtn: "next"),
+              ],
+            ),
           ),
         ),
       ),
