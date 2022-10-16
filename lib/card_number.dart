@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 class CardNumber extends StatelessWidget {
-  const CardNumber({Key? key}) : super(key: key);
+  const CardNumber({Key? key, required this.cardNumber}) : super(key: key);
+
+  final String cardNumber;
 
   @override
   Widget build(BuildContext context) {
-    return const Text(
-      "1234",
-      style: TextStyle(
+    return Text(
+      cardNumber,
+      style: const TextStyle(
         color: Colors.white,
         fontSize: 15,
         letterSpacing: 5,

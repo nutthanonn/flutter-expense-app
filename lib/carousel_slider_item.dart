@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_demo/card_number.dart';
 import 'package:flutter_application_demo/logo_card.dart';
+import 'package:flutter_application_demo/card_model.dart';
 import 'package:flutter_application_demo/money_control.dart';
 
 class CarouselSliderItem extends StatelessWidget {
-  const CarouselSliderItem({Key? key, required this.index}) : super(key: key);
+  const CarouselSliderItem({Key? key, required this.cardData})
+      : super(key: key);
 
-  final int index;
+  final CardModel cardData;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,12 +32,14 @@ class CarouselSliderItem extends StatelessWidget {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const <Widget>[
-                SizedBox(
+              children: <Widget>[
+                const SizedBox(
                   width: 150,
                   child: LogoCard(),
                 ),
-                MoneyControl()
+                MoneyControl(
+                  balance: cardData.balance,
+                )
               ],
             ),
             Column(
@@ -52,11 +57,19 @@ class CarouselSliderItem extends StatelessWidget {
                     width: MediaQuery.of(context).size.width,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        CardNumber(),
-                        CardNumber(),
-                        CardNumber(),
-                        CardNumber(),
+                      children: [
+                        CardNumber(
+                          cardNumber: cardData.cardNumber.substring(0, 4),
+                        ),
+                        const CardNumber(
+                          cardNumber: "****",
+                        ),
+                        const CardNumber(
+                          cardNumber: "****",
+                        ),
+                        CardNumber(
+                          cardNumber: cardData.cardNumber.substring(15, 19),
+                        )
                       ],
                     ),
                   ),
