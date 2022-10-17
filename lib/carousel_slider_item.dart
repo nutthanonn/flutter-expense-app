@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_demo/card_number.dart';
 import 'package:flutter_application_demo/logo_card.dart';
-import 'package:flutter_application_demo/card_model.dart';
+import 'package:flutter_application_demo/models/model_card.dart';
 import 'package:flutter_application_demo/money_control.dart';
 
 class CarouselSliderItem extends StatelessWidget {
   const CarouselSliderItem({Key? key, required this.cardData})
       : super(key: key);
 
-  final CardModel cardData;
+  final ModelCard cardData;
 
   @override
   Widget build(BuildContext context) {
