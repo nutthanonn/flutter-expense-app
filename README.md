@@ -21,3 +21,10 @@
 <p align="center">
     <img src="./assets/day-3.png" width="40%"/>
 </p>
+
+## day-4
+
+- หน้า transection แบบคร่าวๆ
+<p align="center">
+    <img src="./assets/day-4.png" width="40%"/>
+</p>
