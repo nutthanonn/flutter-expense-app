@@ -1,4 +1,6 @@
+import 'package:carousel_slider/carousel_options.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_demo/add_transection_page.dart';
 import 'package:flutter_application_demo/list_transection.dart';
 import 'package:flutter_application_demo/appbar.common.dart';
 import 'package:flutter_application_demo/carousel_slider.common.dart';
@@ -13,8 +15,29 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  int _initialPage = 0;
+
+  void onClickNavbar() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (builder) => AddTransectionPage(
+          cardData: cardData[_initialPage],
+        ),
+      ),
+    );
+  }
+
+  dynamic onPageChange(int index, CarouselPageChangedReason reason) {
+    setState(() {
+      _initialPage = index;
+    });
+    print("onPageChange: $index");
+  }
+
   late List<ModelCard> cardData = [
-    ModelCard(cardNumber: "1232-1234-2356-4785", balance: 3000)
+    ModelCard(cardNumber: "1232-1234-2356-4785", balance: 3000),
+    ModelCard(cardNumber: "2356-4758-1256-5785", balance: 4500),
   ];
 
   // Future<List<ModelCard>> fetchCard() async {
@@ -30,14 +53,19 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarCommon(
+      appBar: AppBarCommon(
         title: "Home page",
+        onClick: onClickNavbar,
       ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
             children: [
-              CarouselSliderCommon(cardData: cardData),
+              CarouselSliderCommon(
+                cardData: cardData,
+                initialPage: _initialPage,
+                onPageChange: onPageChange,
+              ),
               // FutureBuilder(
               //   future: fetchCard(),
               //   builder: (BuildContext context,

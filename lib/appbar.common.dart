@@ -3,12 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_application_demo/add_transection_page.dart';
 
 class AppBarCommon extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarCommon({Key? key, required this.title}) : super(key: key);
+  const AppBarCommon({Key? key, required this.title, required this.onClick})
+      : super(key: key);
 
   @override
   Size get preferredSize => const Size.fromHeight(50);
 
   final String title;
+  final Function() onClick;
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +32,7 @@ class AppBarCommon extends StatelessWidget implements PreferredSizeWidget {
               Icons.add_outlined,
               color: Colors.black,
             ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (builder) => const AddTransectionPage(),
-                ),
-              );
-            },
+            onPressed: onClick,
             splashColor: Colors.black45,
             splashRadius: 20,
           ),
