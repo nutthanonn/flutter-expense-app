@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_demo/carousel_slider_item.dart';
 import 'package:flutter_application_demo/drowdown_menu.dart';
 import 'package:flutter_application_demo/input.common.dart';
 import 'package:flutter_application_demo/models/model_card.dart';
+import 'package:just_audio/just_audio.dart';
 
 class AddTransectionPage extends StatefulWidget {
   final ModelCard cardData;
@@ -14,6 +16,7 @@ class AddTransectionPage extends StatefulWidget {
 }
 
 class _AddTransectionPageState extends State<AddTransectionPage> {
+  final AudioPlayer audioPlayer = AudioPlayer();
   final List<String> transectionType = ["withdraw", "deposite"];
   String dropdownvalue = 'withdraw';
   bool errorTitlehandler = false;
@@ -30,11 +33,7 @@ class _AddTransectionPageState extends State<AddTransectionPage> {
 
   void handleChangeAmount(String value) {
     setState(() {
-      if (value == "") {
-        amount = 0.0;
-      } else {
-        amount = double.parse(value);
-      }
+      amount = value == "" ? 0.0 : double.parse(value);
     });
   }
 
@@ -44,29 +43,16 @@ class _AddTransectionPageState extends State<AddTransectionPage> {
     });
   }
 
-  void onSubmited() {
-    if (title == "") {
-      setState(() {
-        errorTitlehandler = true;
-      });
-    } else {
-      setState(() {
-        errorTitlehandler = false;
-      });
-    }
+  void onSubmited() async {
+    setState(() {
+      errorTitlehandler = title == "" ? true : false;
+      erorrAmounthandler = amount == 0.0 ? true : false;
+    });
 
-    if (amount == 0.0) {
-      setState(() {
-        erorrAmounthandler = true;
-      });
-    } else {
-      setState(() {
-        erorrAmounthandler = false;
-      });
-    }
-
-    if (title != "" && amount != 0.0) {
-      //do something
+    if (erorrAmounthandler == false && errorTitlehandler == false) {
+      Navigator.pop(context);
+      await audioPlayer.setAsset("assets/sounds/cash-purchase.mp3");
+      await audioPlayer.play();
     }
   }
 
@@ -87,6 +73,7 @@ class _AddTransectionPageState extends State<AddTransectionPage> {
           color: Colors.black,
           size: 20.0,
         ),
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       body: SingleChildScrollView(
         child: Center(

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 class TransectionBox extends StatelessWidget {
-  const TransectionBox({Key? key, required this.transectionType})
+  const TransectionBox(
+      {Key? key, required this.transectionType, required this.title})
       : super(key: key);
 
   final String transectionType;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +38,14 @@ class TransectionBox extends StatelessWidget {
                           color: Colors.red,
                           size: 17,
                         ),
-                  const LimitedBox(
+                  LimitedBox(
                     maxWidth: 180,
                     child: Padding(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 20,
                       ),
                       child: Text(
-                        "Salary",
+                        title,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),

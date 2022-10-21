@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_demo/models/model_transection.dart';
 import 'package:flutter_application_demo/transection_box.dart';
 
-class ListTransection extends StatefulWidget {
-  const ListTransection({Key? key}) : super(key: key);
+class ListTransection extends StatelessWidget {
+  const ListTransection({Key? key, required this.transectionData})
+      : super(key: key);
 
-  @override
-  State<ListTransection> createState() => _ListTransectionState();
-}
+  final List<ModelTransection> transectionData;
 
-class _ListTransectionState extends State<ListTransection> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,13 +26,13 @@ class _ListTransectionState extends State<ListTransection> {
           Container(
             margin: const EdgeInsets.symmetric(vertical: 20.0),
             child: Column(
-              children: const [
-                TransectionBox(
-                  transectionType: "deposit",
-                ),
-                TransectionBox(
-                  transectionType: "withdraw",
-                ),
+              children: <Widget>[
+                ...transectionData.map((transection) {
+                  return TransectionBox(
+                    transectionType: transection.transectionType,
+                    title: transection.title,
+                  );
+                }).toList(),
               ],
             ),
           )
