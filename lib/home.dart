@@ -5,6 +5,7 @@ import 'package:flutter_application_demo/list_transection.dart';
 import 'package:flutter_application_demo/appbar.common.dart';
 import 'package:flutter_application_demo/carousel_slider.common.dart';
 import 'package:flutter_application_demo/models/model_card.dart';
+import 'package:flutter_application_demo/models/model_card_transection.dart';
 import 'package:flutter_application_demo/models/model_transection.dart';
 import 'package:http/http.dart' as http;
 
@@ -23,7 +24,7 @@ class _HomeState extends State<Home> {
       context,
       MaterialPageRoute(
         builder: (builder) => AddTransectionPage(
-          cardData: transectionData[_initialPage].values.first,
+          cardData: cardWithTransection[_initialPage].card,
         ),
       ),
     );
@@ -35,58 +36,52 @@ class _HomeState extends State<Home> {
     });
   }
 
-  List<Map<String, ModelCard>> transectionData = [
-    {
-      "data": ModelCard(
-        cardNumber: "1232-1234-2356-4785",
-        balance: 3000,
-        transection: [
-          ModelTransection(
-            id: "2",
-            title: "Salary",
-            amount: 3000,
-            transectionType: "deposit",
-            date: DateTime.now(),
-          ),
-          ModelTransection(
-            id: "2",
-            title: "Food",
-            amount: 1000,
-            transectionType: "withdraw",
-            date: DateTime.now(),
-          ),
-        ],
-      )
-    },
-    {
-      "data": ModelCard(
-        cardNumber: "2356-4758-1256-5785",
-        balance: 4500,
-        transection: [
-          ModelTransection(
-            id: "1",
-            title: "Salary",
-            amount: 4500,
-            transectionType: "deposit",
-            date: DateTime.now(),
-          ),
-          ModelTransection(
-            id: "2",
-            title: "Food",
-            amount: 1000,
-            transectionType: "withdraw",
-            date: DateTime.now(),
-          ),
-          ModelTransection(
-            id: "3",
-            title: "Study",
-            amount: 2340,
-            transectionType: "withdraw",
-            date: DateTime.now(),
-          )
-        ],
-      )
-    },
+  List<ModelCardTrasection> cardWithTransection = [
+    ModelCardTrasection(
+      card: ModelCard(cardNumber: "1232-1234-2356-4785", balance: 3000),
+      transection: [
+        ModelTransection(
+          id: "2",
+          title: "Salary",
+          amount: 3000,
+          transectionType: "deposit",
+          date: DateTime.now(),
+        ),
+        ModelTransection(
+          id: "2",
+          title: "Food",
+          amount: 1000,
+          transectionType: "withdraw",
+          date: DateTime.now(),
+        ),
+      ],
+    ),
+    ModelCardTrasection(
+      card: ModelCard(cardNumber: "2356-4758-1256-5785", balance: 3000),
+      transection: [
+        ModelTransection(
+          id: "1",
+          title: "Salary",
+          amount: 4500,
+          transectionType: "deposit",
+          date: DateTime.now(),
+        ),
+        ModelTransection(
+          id: "2",
+          title: "Food",
+          amount: 1000,
+          transectionType: "withdraw",
+          date: DateTime.now(),
+        ),
+        ModelTransection(
+          id: "3",
+          title: "Study",
+          amount: 2340,
+          transectionType: "withdraw",
+          date: DateTime.now(),
+        )
+      ],
+    )
   ];
 
   // Future<List<ModelCard>> fetchCard() async {
@@ -111,7 +106,7 @@ class _HomeState extends State<Home> {
           child: Column(
             children: [
               CarouselSliderCommon(
-                cardData: transectionData.map((e) => e.values.first).toList(),
+                cardData: cardWithTransection.map((e) => e.card).toList(),
                 initialPage: _initialPage,
                 onPageChange: onPageChange,
               ),
@@ -131,8 +126,7 @@ class _HomeState extends State<Home> {
               //   },
               // ),
               ListTransection(
-                transectionData:
-                    transectionData[_initialPage].values.first.transection,
+                transectionData: cardWithTransection[_initialPage].transection,
               ),
             ],
           ),
