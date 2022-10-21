@@ -23,7 +23,7 @@ class _HomeState extends State<Home> {
       context,
       MaterialPageRoute(
         builder: (builder) => AddTransectionPage(
-          cardData: transectionData[_initialPage].keys.first,
+          cardData: transectionData[_initialPage].values.first,
         ),
       ),
     );
@@ -35,49 +35,57 @@ class _HomeState extends State<Home> {
     });
   }
 
-  List<Map<ModelCard, List<ModelTransection>>> transectionData = [
+  List<Map<String, ModelCard>> transectionData = [
     {
-      ModelCard(cardNumber: "1232-1234-2356-4785", balance: 3000): [
-        ModelTransection(
-          id: "2",
-          title: "Salary",
-          amount: 3000,
-          transectionType: "deposit",
-          date: DateTime.now(),
-        ),
-        ModelTransection(
-          id: "2",
-          title: "Food",
-          amount: 1000,
-          transectionType: "withdraw",
-          date: DateTime.now(),
-        ),
-      ]
+      "data": ModelCard(
+        cardNumber: "1232-1234-2356-4785",
+        balance: 3000,
+        transection: [
+          ModelTransection(
+            id: "2",
+            title: "Salary",
+            amount: 3000,
+            transectionType: "deposit",
+            date: DateTime.now(),
+          ),
+          ModelTransection(
+            id: "2",
+            title: "Food",
+            amount: 1000,
+            transectionType: "withdraw",
+            date: DateTime.now(),
+          ),
+        ],
+      )
     },
     {
-      ModelCard(cardNumber: "2356-4758-1256-5785", balance: 4500): [
-        ModelTransection(
-          id: "1",
-          title: "Salary",
-          amount: 4500,
-          transectionType: "deposit",
-          date: DateTime.now(),
-        ),
-        ModelTransection(
-          id: "2",
-          title: "Food",
-          amount: 1000,
-          transectionType: "withdraw",
-          date: DateTime.now(),
-        ),
-        ModelTransection(
-          id: "3",
-          title: "Study",
-          amount: 2340,
-          transectionType: "withdraw",
-          date: DateTime.now(),
-        ),
-      ]
+      "data": ModelCard(
+        cardNumber: "2356-4758-1256-5785",
+        balance: 4500,
+        transection: [
+          ModelTransection(
+            id: "1",
+            title: "Salary",
+            amount: 4500,
+            transectionType: "deposit",
+            date: DateTime.now(),
+          ),
+          ModelTransection(
+            id: "2",
+            title: "Food",
+            amount: 1000,
+            transectionType: "withdraw",
+            date: DateTime.now(),
+          ),
+          ModelTransection(
+            id: "3",
+            title: "Study",
+            amount: 2340,
+            transectionType: "withdraw",
+            date: DateTime.now(),
+          )
+        ],
+      )
     },
   ];
 
@@ -103,7 +111,7 @@ class _HomeState extends State<Home> {
           child: Column(
             children: [
               CarouselSliderCommon(
-                cardData: transectionData.map((e) => e.keys.first).toList(),
+                cardData: transectionData.map((e) => e.values.first).toList(),
                 initialPage: _initialPage,
                 onPageChange: onPageChange,
               ),
@@ -123,7 +131,8 @@ class _HomeState extends State<Home> {
               //   },
               // ),
               ListTransection(
-                transectionData: transectionData[_initialPage].values.first,
+                transectionData:
+                    transectionData[_initialPage].values.first.transection,
               ),
             ],
           ),
